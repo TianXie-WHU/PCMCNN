@@ -1,8 +1,7 @@
 ## README.md
 
-````
 PCMCNN - Physically Constrained MultiComponent Neural Network
-````
+
 ![image](https://github.com/TianXie-WHU/PCMCNN/blob/master/framework.gif)
 ````
 ## Scientific Context
@@ -16,18 +15,18 @@ For more detailed information, please visit https://arxiv.org/abs/2504.07481.You
 ## Project structure
 PCMCNN/
 ├── data/                     # Input Datasets
-│   ├── TGLAND.xlsx             # Global Atmospheric Profile Modelling Datasets
-│   └── stationtotal.xlsx         # Global station Observation Datasets
-├── models/                    # Well-trained Models
+│   ├── TGLAND.xlsx           # Global Atmospheric Profile Modelling Datasets
+│   └── stationtotal.xlsx     # Global station Observation Datasets
+├── models/                   # Well-trained Models
 │   ├── netnew1.pth
 │   ├── netnew2.pth
 │   └── netnew3.pth
 ├── utils/
-│   ├── data_loader.py           # Data Preprocessing
-│   ├── metrics.py              # Evaluation Metrics
+│   ├── data_loader.py         # Data Preprocessing
+│   ├── metrics.py             # Evaluation Metrics
 │   └── model.py               # DDRL Basic Structure
-├── train_PPGL1-3.py              # Individual Train
-├── train_PPOL.py                # Joint Train
+├── train_PPGL1-3.py           # Individual Train
+├── train_PPOL.py              # Joint Train
 ├── test.py                    # Ground station validation
 └── README.md
 
