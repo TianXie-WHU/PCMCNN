@@ -1,48 +1,66 @@
 ## README.md
 
-
+<<<<<<< HEAD
 
 PCMCNN - Physically Constrained MultiComponent Neural Network
 
-
-
 ![image](https://github.com/TianXie-WHU/PCMCNN/blob/master/framework.gif)
 
-````
+```
 
 ## Scientific Context
 This project implements an end-to-end physically constrained multi-channel neural network (PCMCNN) using PyTorch. 
-PCMCNN integrates a data-driven representation layer (DDRL), a physical parameter-guided layer (PPGL), and a physical process optimization layer (PPOL).
+=======
+PCMCNN - Physically Constrained MultiComponent Neural Network
+
+![image](https://github.com/TianXie-WHU/PCMCNN/blob/master/framework.gif)
+```
+
+## Scientific Context
+
+This project implements an end-to-end physically constrained multi-channel neural network (PCMCNN) using PyTorch.
+
+PCMCNN integrates a data-driven representation layer (DDRL), a physical parameter-guided layer (PPGL), and a physical process optimization layer (PPOL).&#x20;
+
 Used to load data from Excel files and perform training and testing.
+
 1. **DDRL is first designed in PCMCNN, which consists of three parallel DNN sub-networks modeling the nonlinear relationship between the atmospheric functional parameters ψ₁, ψ₂, and ψ₃ and the atmospheric water vapor content based on SC atmospheric processes.
+
 2. **PPGL is introduced to encode explicit physical relationships into the network structure to improve model accuracy.
+
 3. **PPOL constructs the energy function using the LST output from the RTE to uniformly constrain and optimize the coupling between the atmospheric function parameters and the LST.
 
 For more detailed information, please visit https://arxiv.org/abs/2504.07481.You can get in touch at xietianwh@whu.edu.cn (Tian Xie)
 
 ## Project structure
+
 PCMCNN/
 ├── data/                     # Input Datasets
-│   ├── TGLAND.xlsx             # Global Atmospheric Profile Modelling Datasets
-│   └── stationtotal.xlsx         # Global station Observation Datasets
-├── models/                    # Well-trained Models
+│   ├── TGLAND.xlsx           # Global Atmospheric Profile Modelling Datasets
+│   └── stationtotal.xlsx     # Global Station Observation Datasets
+├── models/                   # Well-trained Models
 │   ├── netnew1.pth
 │   ├── netnew2.pth
 │   └── netnew3.pth
 ├── utils/
-│   ├── data_loader.py           # Data Preprocessing
-│   ├── metrics.py              # Evaluation Metrics
+│   ├── data_loader.py         # Data Preprocessing
+│   ├── metrics.py             # Evaluation Metrics
 │   └── model.py               # DDRL Basic Structure
-├── train_PPGL1-3.py              # Individual Train
-├── train_PPOL.py                # Joint Train
+├── train_PPGL1-3.py           # Individual Train
+├── train_PPOL.py              # Joint Train
 ├── test.py                    # Ground station validation
 └── README.md
 
 ## Reproducibility Statement
+
 ### System Requirements
-- Hardware: NVIDIA GPU (≥8GB VRAM) recommended
-- OS: Linux/Windows/MacOS (64-bit)
+
+* Hardware: NVIDIA GPU (≥8GB VRAM) recommended
+
+* OS: Linux/Windows/MacOS (64-bit)
+
 ### Dependency Management
+
 ```bash
 # Create conda environment
 conda create -n pcmcnn python=3.9
@@ -50,7 +68,7 @@ conda activate pcmcnn
 # Install core dependencies
 pip install torch==1.13.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
 pip install xlrd==1.2.0 pandas==2.1.2 numpy==1.24.2
-````
+```
 
 ### 1.Installing Dependency Libraries
 
