@@ -7,60 +7,72 @@ from utils.model import Net
 from torch import nn
 
 if __name__ == '__main__':
+    # Data preparation and preprocessing
     excelFile1 = 'data/TGLAND.xlsx'
+    # Load input features from 'water' sheet
     x = read_xlrd(excelFile=excelFile1, sheet_name='water')
+    # Load target values from 'e1' sheet
     y = read_xlrd(excelFile=excelFile1, sheet_name='e2')
 
-x1 = torch.FloatTensor(x)
-y1 = torch.FloatTensor(y)
+    # Convert numpy arrays to PyTorch tensors
+    x1 = torch.FloatTensor(x)
+    y1 = torch.FloatTensor(y)
 
-x = torch.Tensor(x)
-y = torch.Tensor(y)
-dataset = Data.TensorDataset(x, y)
-train_data, test_data=random_split(dataset, [round(0.8*x.shape[0]),round(0.2*x.shape[0])])
-train_loader = torch.utils.data.DataLoader(train_data, batch_size=10000, shuffle=True, num_workers=0,)
-test_loader = torch.utils.data.DataLoader(test_data, batch_size=10000, shuffle=True, num_workers=0,)
+    x = torch.Tensor(x)
+    y = torch.Tensor(y)
+    # Create dataset and split into train/test sets (80/20 split)
+    dataset = Data.TensorDataset(x, y)
+    train_data, test_data=random_split(dataset, [round(0.8*x.shape[0]),round(0.2*x.shape[0])])
+    # Create data loaders with full-batch training (batch_size=10000)
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size=10000, shuffle=True, num_workers=0,)
+    test_loader = torch.utils.data.DataLoader(test_data, batch_size=10000, shuffle=True, num_workers=0,)
 
-net = Net()
+    # Model initialization
+    net = Net()
+    # Enable GPU acceleration if available
+    if torch.cuda.is_available():
+        net = net.cuda()
 
-if torch.cuda.is_available():
-    net = net.cuda()
+    # Loss function configuration
+    loss_fn = nn.MSELoss()# Mean Squared Error loss
+    if torch.cuda.is_available():
+        loss_fn = loss_fn.cuda()
 
+    # Optimizer configuration
+    learning_rate = 0.001
+    optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 
-loss_fn = nn.MSELoss()
-if torch.cuda.is_available():
-    loss_fn = loss_fn.cuda()
+    # Training configuration parameters
+    total_train_step = 0 # Counter for training iterations
+    total_test_step = 0 # Counter for testing iterations
+    epoch = 10000 # Maximum training epochs
+    # Main training loop
+    for i in range(epoch):
+        net.train() # Set model to training mode
+        for data in train_loader:
+            x, y = data
+            # Move data to GPU if available
+            if torch.cuda.is_available():
+                x = x.cuda()
+                y = y.cuda()
 
-# 优化器
-learning_rate = 0.001
-optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
+            # Forward pass
+            outputs = net(x)
+            trainloss = loss_fn(outputs, y)
 
-# 设置训练网络的一些参数
-# 记录训练的次数
-total_train_step = 0
-# 记录测试的次数
-total_test_step = 0
-# 训练的轮数
-epoch = 10000
-for i in range(epoch):
-    net.train()
-    for data in train_loader:
-        x, y = data
-        if torch.cuda.is_available():
-            x = x.cuda()
-            y = y.cuda()
-        outputs = net(x)
-        trainloss = loss_fn(outputs, y)
-        optimizer.zero_grad()
-        trainloss.backward()
-        optimizer.step()
+            # Backpropagation
+            optimizer.zero_grad()
+            trainloss.backward()
+            optimizer.step()
 
-        total_train_step = total_train_step + 1
-        if total_train_step % 10 == 0:
-            print("训练次数：{}, Loss: {}".format(total_train_step, trainloss.item()))
+            # Training progress monitoring
+            total_train_step = total_train_step + 1
+            if total_train_step % 10 == 0:
+                print("Training step：{}, Loss: {}".format(total_train_step, trainloss.item()))
 
-        net.eval()
-        with torch.no_grad():
+        # Validation phase
+        net.eval() # Set model to evaluation mode
+        with torch.no_grad(): # Disable gradient calculation
             for test in test_loader:
                 m, n = data
                 if torch.cuda.is_available():
@@ -68,13 +80,15 @@ for i in range(epoch):
                     n = n.cuda()
                 output = net(m)
                 testloss = loss_fn(output, n)
+                # Calculate evaluation metrics
                 R2 = cal_Rsqure(n, output)
                 mae = cal_MAE(n, output)
-                print("整体测试集上的Loss: {}".format(testloss.item()))
-                print("整体测试集上的正确率: {}".format(R2))
-                print("整体测试集上的MAE: {}".format(mae))
+                print("Test Loss: {}".format(testloss.item()))
+                print("Test R-squared: {}".format(R2))
+                print("Test MAE: {}".format(mae))
 
-    if(abs(testloss.item() - trainloss.item()) <= 0.01) and (R2 >= 0.9):
-        torch.save(net, "net2.pth")
-        print("模型已保存")
-        break
+        # Early stopping and model saving condition
+        if(abs(testloss.item() - trainloss.item()) <= 0.01) and (R2 >= 0.95):
+            torch.save(net, "net2.pth")
+            print("Model saved successfully")
+            break
