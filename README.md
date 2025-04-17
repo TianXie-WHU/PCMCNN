@@ -2,7 +2,7 @@
 
 ````
 PCMCNN - Physically Constrained MultiComponent Neural Network
-
+![image](https://github.com/TianXie-WHU/PCMCNN/blob/master/framework.gif)
 ## Scientific Context
 This project implements an end-to-end physically constrained multi-channel neural network (PCMCNN) using PyTorch. PCMCNN integrates a data-driven representation layer (DDRL), a physical parameter-guided layer (PPGL), and a physical process optimization layer (PPOL).Used to load data from Excel files and perform training and testing. The project is divided into two steps.
 1. **DDRL is first designed in PCMCNN, which consists of three parallel DNN sub-networks modeling the nonlinear relationship between the atmospheric functional parameters ψ₁, ψ₂, and ψ₃ and the atmospheric water vapor content based on SC atmospheric processes.
