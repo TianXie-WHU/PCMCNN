@@ -1,23 +1,11 @@
 ## README.md
 
-<<<<<<< HEAD
-
 PCMCNN - Physically Constrained MultiComponent Neural Network
 
 ![image](https://github.com/TianXie-WHU/PCMCNN/blob/master/framework.gif)
 
 ```
-
 ## Scientific Context
-This project implements an end-to-end physically constrained multi-channel neural network (PCMCNN) using PyTorch. 
-=======
-PCMCNN - Physically Constrained MultiComponent Neural Network
-
-![image](https://github.com/TianXie-WHU/PCMCNN/blob/master/framework.gif)
-```
-
-## Scientific Context
-
 This project implements an end-to-end physically constrained multi-channel neural network (PCMCNN) using PyTorch.
 
 PCMCNN integrates a data-driven representation layer (DDRL), a physical parameter-guided layer (PPGL), and a physical process optimization layer (PPOL).&#x20;
