@@ -74,7 +74,7 @@ if __name__ == '__main__':
         net.eval() # Set model to evaluation mode
         with torch.no_grad(): # Disable gradient calculation
             for test in test_loader:
-                m, n = data
+                m, n = test
                 if torch.cuda.is_available():
                     m = m.cuda()
                     n = n.cuda()
