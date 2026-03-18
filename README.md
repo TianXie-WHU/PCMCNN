@@ -124,15 +124,7 @@ python test.py
 If using this code in your research, please cite:
 
 ```
-@misc{xie2025mechanismlearningdeeplycoupledmodel,
-title={A Mechanism-Learning Deeply Coupled Model for Remote Sensing Retrieval of Global Land Surface Temperature},
-author={Tian Xie and Menghui Jiang and Huanfeng Shen and Huifang Li and Chao Zeng and Xiaobin Guan and Jun Ma and Guanhao Zhang and Liangpei Zhang},
-year={2025},
-eprint={2504.07481},
-archivePrefix={arXiv},
-primaryClass={physics.ao-ph},
-url={https://arxiv.org/abs/2504.07481},
-}
+Xie, T., Shen, H., Jiang, M., Li, H., Zeng, C., Jiménez-Muñoz, J. C., Sobrino, J. A., Ma, J., Zhang, G., & Zhang, L. (2026). A mechanism-learning deeply coupled model for single-channel land surface temperature retrieval. Remote Sensing of Environment, 338, 115350. https://doi.org/10.1016/j.rse.2026.115350
 ```
 
 ## Licences
